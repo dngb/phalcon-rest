@@ -1,10 +1,3 @@
-# Phalcon REST
-
-[![Latest Stable Version](https://poser.pugx.org/redound/phalcon-rest/v/stable)][0] 
-[![Phalcon REST Library](http://phalconist.com/redound/phalcon-rest/default.svg)](1)
-
-*a library focused on simplifying the creation of RESTful API's*
-
 ## Installing
 
 Install using Composer.
