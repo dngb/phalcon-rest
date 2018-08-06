@@ -2,7 +2,7 @@
 
 Install using Composer.
 ````
-composer require redound/phalcon-rest
+composer require dngb/phalcon-rest
 ````
 
 ## Boilerplate
