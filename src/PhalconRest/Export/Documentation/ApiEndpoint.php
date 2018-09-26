@@ -8,6 +8,7 @@ class ApiEndpoint
     protected $description;
     protected $httpMethod;
     protected $path;
+    protected $exampleRequest;
     protected $exampleResponse;
     protected $allowedRoles = [];
 
@@ -49,6 +50,16 @@ class ApiEndpoint
     public function setPath($path)
     {
         $this->path = $path;
+    }
+
+    public function getExampleRequest()
+    {
+        return $this->exampleRequest;
+    }
+
+    public function setExampleRequest($exampleRequest)
+    {
+        $this->exampleRequest = $exampleRequest;
     }
 
     public function getExampleResponse()

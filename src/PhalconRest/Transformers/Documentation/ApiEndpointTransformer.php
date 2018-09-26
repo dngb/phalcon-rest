@@ -14,6 +14,7 @@ class ApiEndpointTransformer extends Transformer
             'description' => $endpoint->getDescription(),
             'httpMethod' => $endpoint->getHttpMethod(),
             'path' => $endpoint->getPath(),
+            'exampleRequest' => $endpoint->getExampleRequest(),
             'exampleResponse' => $endpoint->getExampleResponse(),
             'allowedRoles' => $endpoint->getAllowedRoles()
         ];

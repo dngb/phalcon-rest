@@ -22,6 +22,7 @@ class ApiEndpoint
     protected $handlerMethod;
 
     protected $postedDataMethod = PostedDataMethods::AUTO;
+    protected $exampleRequest;
     protected $exampleResponse;
 
     protected $allowedRoles = [];
@@ -282,6 +283,17 @@ class ApiEndpoint
     }
 
     /**
+     * @param array $exampleRequest Example of the response of the endpoint
+     *
+     * @return $this
+     */
+    public function exampleRequest($exampleRequest)
+    {
+        $this->exampleRequest = $exampleRequest;
+        return $this;
+    }
+
+    /**
      * @param array $exampleResponse Example of the response of the endpoint
      *
      * @return $this
@@ -290,6 +302,14 @@ class ApiEndpoint
     {
         $this->exampleResponse = $exampleResponse;
         return $this;
+    }
+
+    /**
+     * @return string Example of the request of the endpoint
+     */
+    public function getExampleRequest()
+    {
+        return $this->exampleRequest;
     }
 
     /**
