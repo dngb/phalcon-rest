@@ -282,7 +282,7 @@ class ApiEndpoint
     }
 
     /**
-     * @param string $exampleResponse Example of the response of the endpoint
+     * @param array $exampleResponse Example of the response of the endpoint
      *
      * @return $this
      */
