@@ -78,7 +78,7 @@ class ApiCollection
 
             $url = parse_url($link);
 
-            array_push($item, array(
+            $_item = array(
                 'name' => $apiCollection->getPrefix().$apiEndpoint->getPath(),
                 'request' => array(
                     'method' => $apiEndpoint->getHttpMethod(),
@@ -100,7 +100,17 @@ class ApiCollection
                     ),
                     'description' => $apiEndpoint->getDescription()
                 )
-            ));
+            );
+
+            if($apiEndpoint->getExampleResponse()){
+                $_item['response'] = array(
+                    array(
+                        'name' => 'Sample Response',
+                        'body' => $apiEndpoint->getExampleResponse() ? json_encode($apiEndpoint->getExampleResponse(), JSON_PRETTY_PRINT) : ''
+                    )
+                );
+            }
+            array_push($item, $_item);
         }
 
         $this->addItem(new Request(
