@@ -78,9 +78,6 @@ class ApiCollection
 
             $url = parse_url($link);
 
-            //$exampleRequest = $apiEndpoint->getExampleRequest();
-            //$exampleRequest = is_array($exampleRequest) ? json_encode(array_map(function($v){ return "\r\n  ".$v;}, $exampleRequest)) : null;
-
             array_push($item, array(
                 'name' => $apiCollection->getPrefix().$apiEndpoint->getPath(),
                 'request' => array(
@@ -93,7 +90,7 @@ class ApiCollection
                     ),
                     'body' => array(
                         'mode' => 'raw',
-                        'raw' => $apiEndpoint->getExampleRequest() ? json_encode($apiEndpoint->getExampleRequest()) : ''
+                        'raw' => $apiEndpoint->getExampleRequest() ? json_encode($apiEndpoint->getExampleRequest(), JSON_PRETTY_PRINT) : ''
                     ),
                     'url' => array(
                         'raw' => $link,
