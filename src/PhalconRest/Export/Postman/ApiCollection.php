@@ -4,15 +4,37 @@ namespace PhalconRest\Export\Postman;
 
 class ApiCollection
 {
-    public $id;
-    public $name;
     public $basePath;
-    protected $requests = [];
 
-    public function __construct($name, $basePath)
+    public $info = [];
+    public $auth = [];
+    public $event = [];
+    public $variable = [];
+
+    protected $items = [];
+
+    public function addInfo(array $info)
     {
-        $this->id = uniqid();
-        $this->name = $name;
+        $this->info = $info;
+    }
+
+    public function addAuth(array $auth)
+    {
+        $this->auth = $auth;
+    }
+
+    public function addEvent(array $event)
+    {
+        $this->event = $event;
+    }
+
+    public function addVariable(array $variable)
+    {
+        $this->variable = $variable;
+    }
+
+    public function __construct($basePath)
+    {
         $this->basePath = $basePath;
     }
 
@@ -30,24 +52,12 @@ class ApiCollection
             return;
         }
 
-        $name = $route->getName() ?: $route->getPattern();
-
-        $this->addRequest(new Request(
-            $this->id,
-            uniqid(),
-            $name,
-            null,
-            $this->basePath . $route->getPattern(),
-            $route->getHttpMethods(),
-            'Authorization: Bearer {{authToken}}',
-            null,
-            "raw"
-        ));
+        $this->routes[] = $route;
     }
 
-    public function addRequest(Request $request)
+    public function addItem(Request $request)
     {
-        $this->requests[] = $request;
+        $this->items[] = $request;
     }
 
     public function addManyCollections(array $collections)
@@ -58,26 +68,52 @@ class ApiCollection
         }
     }
 
-    public function addCollection(\PhalconRest\Api\ApiCollection $collection)
+    public function addCollection(\PhalconRest\Api\ApiCollection $apiCollection)
     {
-        foreach ($collection->getEndpoints() as $endpoint) {
+        $item = array();
 
-            $this->addRequest(new Request(
-                $this->id,
-                uniqid(),
-                $collection->getPrefix() . $endpoint->getPath(),
-                $endpoint->getDescription(),
-                $this->basePath . $collection->getPrefix() . $endpoint->getPath(),
-                $endpoint->getHttpMethod(),
-                'Authorization: Bearer {{authToken}}',
-                null,
-                "raw"
+        foreach ($apiCollection->getEndpoints() as $apiEndpoint) {
+
+            $link = $this->basePath.$apiCollection->getPrefix().preg_replace('/\{([a-z]+)\}/i', '{{$1}}', $apiEndpoint->getPath());
+
+            $url = parse_url($link);
+
+            //$exampleRequest = $apiEndpoint->getExampleRequest();
+            //$exampleRequest = is_array($exampleRequest) ? json_encode(array_map(function($v){ return "\r\n  ".$v;}, $exampleRequest)) : null;
+
+            array_push($item, array(
+                'name' => $apiCollection->getPrefix().$apiEndpoint->getPath(),
+                'request' => array(
+                    'method' => $apiEndpoint->getHttpMethod(),
+                    'header' => array(
+                        array(
+                            'key' => 'Content-Type',
+                            'value' => 'application/json'
+                        )
+                    ),
+                    'body' => array(
+                        'mode' => 'raw',
+                        'raw' => $apiEndpoint->getExampleRequest() ? json_encode($apiEndpoint->getExampleRequest()) : ''
+                    ),
+                    'url' => array(
+                        'raw' => $link,
+                        'protocol' => $url['scheme'],
+                        'host' => explode(".", $url['host']),
+                        'path' => explode("/", substr($url['path'], 1))
+                    ),
+                    'description' => $apiEndpoint->getDescription()
+                )
             ));
         }
+
+        $this->addItem(new Request(
+            $apiCollection->getName(),
+            $item
+        ));
     }
 
-    public function getRequests()
+    public function getItems()
     {
-        return $this->requests;
+        return $this->items;
     }
 }

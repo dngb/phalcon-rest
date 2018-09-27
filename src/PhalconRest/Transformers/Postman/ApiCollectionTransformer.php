@@ -8,19 +8,21 @@ use PhalconRest\Transformers\Transformer;
 class ApiCollectionTransformer extends Transformer
 {
     protected $defaultIncludes = [
-        'requests',
+        'item',
     ];
 
     public function transform(PostmanCollection $collection)
     {
         return [
-            'id' => $collection->id,
-            'name' => $collection->name,
+            'info' => $collection->info,
+            'auth' => $collection->auth,
+            'event' => $collection->event,
+            'variable' => $collection->variable
         ];
     }
 
-    public function includeRequests(PostmanCollection $collection)
+    public function includeItem(PostmanCollection $collection)
     {
-        return $this->collection($collection->getRequests(), new RequestTransformer);
+        return $this->collection($collection->getItems(), new RequestTransformer);
     }
 }
