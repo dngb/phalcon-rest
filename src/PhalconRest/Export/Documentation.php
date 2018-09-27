@@ -91,6 +91,7 @@ class Documentation extends Plugin
             $endpoint = new DocumentationEndpoint();
             $endpoint->setName($apiEndpoint->getName());
             $endpoint->setDescription($apiEndpoint->getDescription());
+            $endpoint->setExplenation($apiEndpoint->getExplenation());
             $endpoint->setHttpMethod($apiEndpoint->getHttpMethod());
             $endpoint->setPath($apiEndpoint->getPath());
             $endpoint->setExampleRequest($apiEndpoint->getExampleRequest());

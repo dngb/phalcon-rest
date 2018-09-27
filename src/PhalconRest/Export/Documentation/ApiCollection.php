@@ -6,6 +6,7 @@ class ApiCollection
 {
     protected $name;
     protected $description;
+    protected $explenation;
     protected $path;
 
     protected $endpoints = [];
@@ -29,6 +30,16 @@ class ApiCollection
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    public function getExplenation()
+    {
+        return $this->explenation;
+    }
+
+    public function setExplenation($explenation)
+    {
+        $this->explenation = $explenation;
     }
 
     public function getPath()

@@ -16,6 +16,7 @@ class ApiCollectionTransformer extends Transformer
         return [
             'name' => $collection->getName(),
             'description' => $collection->getDescription(),
+            'explenation' => $collection->getExplenation(),
             'prefix' => $collection->getPath(),
             'fields' => $collection->getFields()
         ];

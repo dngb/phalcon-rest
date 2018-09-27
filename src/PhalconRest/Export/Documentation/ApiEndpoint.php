@@ -6,6 +6,7 @@ class ApiEndpoint
 {
     protected $name;
     protected $description;
+    protected $explenation;
     protected $httpMethod;
     protected $path;
     protected $exampleRequest;
@@ -30,6 +31,16 @@ class ApiEndpoint
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    public function getExplenation()
+    {
+        return $this->explenation;
+    }
+
+    public function setExplenation($explenation)
+    {
+        $this->explenation = $explenation;
     }
 
     public function getHttpMethod()

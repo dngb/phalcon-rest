@@ -16,6 +16,7 @@ class ApiEndpoint
 
     protected $name;
     protected $description;
+    protected $explenation;
 
     protected $httpMethod;
     protected $path;
@@ -56,6 +57,17 @@ class ApiEndpoint
     public function description($description)
     {
         $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * @param string explenation Explenation for the endpoint
+     *
+     * @return static
+     */
+    public function explenation($explenation)
+    {
+        $this->explenation = $explenation;
         return $this;
     }
 
@@ -283,6 +295,14 @@ class ApiEndpoint
     }
 
     /**
+     * @return string Description for the endpoint
+     */
+    public function getExplenation()
+    {
+        return $this->explenation;
+    }
+
+    /**
      * @param array $exampleRequest Example of the response of the endpoint
      *
      * @return $this
@@ -305,7 +325,7 @@ class ApiEndpoint
     }
 
     /**
-     * @return string Example of the request of the endpoint
+     * @return array Example of the request of the endpoint
      */
     public function getExampleRequest()
     {
@@ -313,7 +333,7 @@ class ApiEndpoint
     }
 
     /**
-     * @return string Example of the response of the endpoint
+     * @return array Example of the response of the endpoint
      */
     public function getExampleResponse()
     {
