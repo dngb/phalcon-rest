@@ -4,7 +4,8 @@
     "description": "Phalcon REST Library - DNGB update",
     "require": {
         "php": ">=5.4",
-        "ext-phalcon": ">=3.0.0"
+        "ext-phalcon": ">=3.0.0",
+        "redound/phalcon-api": "^1.0.2"
     },
     "suggest": {
         "league/fractal": "^0.17.0",
